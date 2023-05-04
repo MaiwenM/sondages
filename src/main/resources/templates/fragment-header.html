@@ -7,5 +7,21 @@
 </head>
 <header th:fragment="header">
     <h1>Votez pour vos propositions préférées</h1>
+
+    <span sec:authorize="!isAuthenticated()">
+        <a th:href="@{/login}">Se connecter</a>
+    </span>
+    <span sec:authorize="isAuthenticated()">
+        Utilisateur : <span sec:authentication="name">Bob</span>
+        <span sec:authentication="principal.authorities">[ROLE_USER]</span>
+        <th:block sec:authorize="hasRole('ADMIN')">
+        &nbsp;|&nbsp;
+        <a th:href="@{/admin/createUser}">Ajouter un utilisateur</a>
+        </th:block>
+        |
+        <a th:href="@{/change-password}">Changer de mot de passe</a>
+        |
+        <a th:href="@{/logout}">Se déconnecter</a>
+    </span>
 </header>
 </html>

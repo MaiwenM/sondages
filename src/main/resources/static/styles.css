@@ -187,7 +187,7 @@ input {
 }
 
 a:link {
-    color: #1f2552;
+    color: #d7a097;
 }
 
 a:hover {
@@ -195,7 +195,7 @@ a:hover {
 }
 
 a:visited {
-    color: black;
+    color: #b75f5c;
 }
 
 a[tooltip] {

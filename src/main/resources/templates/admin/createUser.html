@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sondages</title>
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{/styles.css}"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap">
+</head>
+<header th:replace="~{fragment-header :: header}">
+    <h1>Votez pour vos propositions préférées</h1>
+</header>
+<body>
+<h2>Nouvel utilisateur</h2>
+<div style="width: 300px; margin-left: auto; margin-right: auto">
+<div class="box-sondage">
+    <form th:object="${user}" th:action="@{/admin/createUser}" method="post">
+
+        <div class="error" th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+        </div>
+
+        <label for="login">Login :</label>
+        <input id="login" type="text" name="login" th:field="*{login}">
+        <span class="error" th:errors="*{login}">Error</span>
+        <br>
+
+        <label th:for="password">Mot de passe :</label>
+        <input id="password" type="password" name="password" th:field="*{password}">
+        <span class="error" th:errors="*{password}">Error</span>
+        <br>
+
+        <label for="confirmPassword">Confirm :</label>
+        <input id="confirmPassword" type="password" name="confirmPassword" th:field="*{confirmPassword}">
+        <span class="error" th:errors="*{confirmPassword}">Error</span>
+        <br>
+
+        <button type="submit" class="btn-ok">Créer</button>
+        <button type="button" class="btn" onclick="window.location='/'">Annuler</button>
+    </form>
+</div>
+</div>
+</body>
+</html>

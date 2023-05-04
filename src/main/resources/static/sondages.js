@@ -13,6 +13,8 @@ const BASEURL_FRAGMENT_SONDAGES = "/fragments/sondages";
 const BASEURL_WEBSERVICE_VOTES = "/api/votes";
 
 const BTN_CREATE = "btn-create-polling";
+const BTN_SUBSCRIBE = "btn-subscribe";
+const BTN_CHANGE_PASSWORD = "btn-change-password";
 const BTN_REFRESH = "btn-refresh-pollings";
 const DIV_SONDAGES = "sondages";
 const FORM_CREATE_SONDAGE = "form-creation-sondage";
@@ -20,10 +22,30 @@ const FORM_CREATE_SONDAGE = "form-creation-sondage";
 document.onreadystatechange = () => {
     if (document.readyState === "complete") {
         let btnRefreshPollings = document.getElementById(BTN_REFRESH);
+        if (btnRefreshPollings) {
+            btnRefreshPollings.addEventListener("click", refreshAllSondages);
+        }
         let formCreatePolling = document.getElementById(FORM_CREATE_SONDAGE);
-        btnRefreshPollings.addEventListener("click", refreshAllSondages);
-        formCreatePolling.addEventListener("submit", createNewPolling);
+        if (formCreatePolling) {
+            formCreatePolling.addEventListener("submit", createNewPolling);
+        }
+        let btnSubscribe = document.getElementById(BTN_SUBSCRIBE);
+        if (btnSubscribe) {
+            btnSubscribe.addEventListener("click", subscribe);
+        }
+        let btnChangePassword = document.getElementById(BTN_CHANGE_PASSWORD);
+        if (btnChangePassword) {
+            btnChangePassword.addEventListener("click", changePassword);
+        }
     }
+}
+
+/**
+ * Redirige vers la page d'inscription.
+ * @param {MouseEvent} event
+ */
+function subscribe(event) {
+    window.location.href = "/inscription";
 }
 
 /**
@@ -35,7 +57,7 @@ function refreshAllSondages(event) {
     let pageCourante = document.querySelector(".page-courante").textContent;
     pageCourante -= 1;
 
-    fetch(BASEURL_FRAGMENT_SONDAGES+'?page='+pageCourante)
+    fetch(BASEURL_FRAGMENT_SONDAGES + '?page=' + pageCourante)
         .then(result => result.text())
         .then(text => {
             let div = document.getElementById(DIV_SONDAGES);

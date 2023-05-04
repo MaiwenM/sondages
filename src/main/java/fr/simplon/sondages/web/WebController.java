@@ -1,7 +1,6 @@
 package fr.simplon.sondages.web;
 
 import fr.simplon.sondages.dao.SondageRepository;
-import fr.simplon.sondages.dao.VoteRepository;
 import fr.simplon.sondages.entity.Sondage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,19 +28,16 @@ public class WebController
     public static final int DEFAULT_PAGE_COUNT = 5;
 
     private SondageRepository mSondageRepository;
-    private VoteRepository    mVoteRepository;
 
     /**
      * Constructeur.
      *
      * @param pSondageRepository
-     * @param pVoteRepository
      */
     @Autowired
-    public WebController(SondageRepository pSondageRepository, VoteRepository pVoteRepository)
+    public WebController(SondageRepository pSondageRepository)
     {
         mSondageRepository = pSondageRepository;
-        mVoteRepository = pVoteRepository;
     }
 
     /**
