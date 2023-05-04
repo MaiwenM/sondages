@@ -28,7 +28,6 @@
             <form class="col" method="post" th:action="@{/votes/{id}(id=${sondage.id})}">
                 <div>Votez !</div>
                 <div class="form-group">
-                    <input class="form-control btn-block" type="text" name="user" required placeholder="Votre nom">
                     <button class="btn btn-success btn-block" name="value" value="true" th:text="Pour" type="submit">
                         Pour
                     </button>

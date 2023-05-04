@@ -19,6 +19,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -73,10 +74,14 @@ public class VoteController
      */
     @PostMapping(path = "/votes/{sondageId}")
     public String vote(
-            @PathVariable Long sondageId, @Valid @ModelAttribute Vote vote, BindingResult validation,
+            Principal principal,
+            @PathVariable Long sondageId,
+            @Valid @ModelAttribute Vote vote, BindingResult validation,
             Model model)
     {
         Sondage sondage = mRepository.getReferenceById(sondageId);
+        vote.setUser(principal.getName());
+
         if (sondage != null)
         {
             model.addAttribute("sondage", sondage);

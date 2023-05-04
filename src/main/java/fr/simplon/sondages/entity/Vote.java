@@ -26,8 +26,6 @@ public class Vote
     @Column(nullable = false)
     private LocalDateTime votedAt;
 
-    @NotNull
-    @NotBlank
     @Column(nullable = false)
     private String user;
 

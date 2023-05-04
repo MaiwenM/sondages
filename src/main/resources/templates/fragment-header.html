@@ -12,11 +12,11 @@
     <div class="title-bar">
         <button th:onclick="|window.location='@{/}'|" title="Retour">&lt</button>&nbsp;
 
-        <span class="pagination" sec:authorize="!isAuthenticated()">
+        <span class="middle-align" sec:authorize="!isAuthenticated()">
             <a th:href="@{/login}">Se connecter</a>
         </span>
-        <span class="pagination" sec:authorize="isAuthenticated()">
-        Utilisateur : <span sec:authentication="name">Bob</span>
+        <span class="middle-align" sec:authorize="isAuthenticated()">
+        Utilisateur : &nbsp;<span sec:authentication="name">Bob</span>
         <span sec:authentication="principal.authorities">[ROLE_USER]</span>
         <th:block sec:authorize="hasRole('ADMIN')">
         &nbsp;|&nbsp;
@@ -24,9 +24,9 @@
         &nbsp;|&nbsp;
         <a th:href="@{/admin/createUser}">Ajouter un utilisateur</a>
         </th:block>
-        |
+         &nbsp;| &nbsp;
         <a th:href="@{/change-password}">Changer de mot de passe</a>
-        |
+         &nbsp;| &nbsp;
         <a th:href="@{/logout}">Se déconnecter</a>
     </span>
     </div>
