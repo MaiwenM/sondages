@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Sondages</title>
-    <link rel="stylesheet" href="../static/styles.css" th:href="@{/styles.css}"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap">
+    <th:block th:replace="~{fragment-css :: styles}"></th:block>
 </head>
 <header th:replace="~{fragment-header :: header}">
     <h1>Votez pour vos propositions préférées</h1>

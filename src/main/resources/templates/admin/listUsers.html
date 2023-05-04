@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sondages</title>
+    <th:block th:replace="~{fragment-meta :: html-header}"></th:block>
+</head>
+<header th:replace="~{fragment-header :: header}">
+    <h1>Votez pour vos propositions préférées</h1>
+</header>
+<body>
+
+<div id="users" class="container" th:fragment="all-users">
+
+    <h2>Liste des utilisateurs</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Utilisateur (login)</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="user : ${users}">
+            <tr th:replace="~{admin/fragment-user :: single-user(user=${user})}"></tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

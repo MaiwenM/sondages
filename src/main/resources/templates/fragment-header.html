@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
+    <th:block th:replace="~{fragment-meta :: html-header}"></th:block>
 </head>
 <header th:fragment="header">
     <h1>Votez pour vos propositions préférées</h1>
@@ -15,6 +16,8 @@
         Utilisateur : <span sec:authentication="name">Bob</span>
         <span sec:authentication="principal.authorities">[ROLE_USER]</span>
         <th:block sec:authorize="hasRole('ADMIN')">
+        &nbsp;|&nbsp;
+        <a th:href="@{/admin/listUsers}">Lister les utilisateurs</a>
         &nbsp;|&nbsp;
         <a th:href="@{/admin/createUser}">Ajouter un utilisateur</a>
         </th:block>

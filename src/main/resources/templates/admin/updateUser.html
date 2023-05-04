@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier utilisateur</title>
+    <th:block th:replace="~{fragment-meta :: html-header}"></th:block>
+</head>
+<header th:replace="~{fragment-header :: header}">
+    <h1>Votez pour vos propositions préférées</h1>
+</header>
+<body>
+<h2>Modifier un utilisateur</h2>
+<div class="container">
+
+    <div class="alert alert-success" role="alert" th:if="${success}">La modification a bien été effectuée.</div>
+
+    <form th:object="${user}" th:action="@{/admin/updateUser/{id}(id=${user.login})}" method="post">
+
+        <div class="error" th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+        </div>
+
+        <p>
+            <label for="login">Login :</label>
+            <input type="hidden" th:field="*{login}">
+            <input id="login" type="text" th:value="*{login}" disabled="disabled">
+            <span class="error" th:errors="*{login}">Error</span>
+        </p>
+        <p>
+            <label th:for="password">Nouveau mot de passe :</label>
+            <input id="password" type="password" name="password" th:field="*{password}">
+            <span class="error" th:errors="*{password}">Error</span>
+        </p>
+        <p>
+            <label for="confirmPassword">Confirmation :</label>
+            <input id="confirmPassword" type="password" name="confirmPassword" th:field="*{confirmPassword}">
+            <span class="error" th:errors="*{confirmPassword}">Error</span>
+        </p>
+        <p>
+            <button type="submit" class="btn btn-lg btn-success">Modifier</button>
+            <button type="button" class="btn btn-lg btn-info" onclick="window.location='/'">Annuler</button>
+        </p>
+    </form>
+</div>
+</body>
+</html>

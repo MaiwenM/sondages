@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sondage</title>
+    <th:block th:replace="~{fragment-meta :: html-header}"></th:block>
+</head>
 <body>
 <div th:fragment="single-sondage (sondage)" class="box-sondage">
     <img th:src="@{${sondage.closedAt < #temporals.createNow()} ? '/closed.png' : '/open.png'}"

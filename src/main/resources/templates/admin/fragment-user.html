@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Utilisateur</title>
+    <th:block th:replace="~{fragment-meta :: html-header}"></th:block>
+</head>
+<body>
+<div th:fragment="single-user (user)">
+    <tr>
+        <form th:action="@{/admin/updateUser/{id}(id=${user.username})}" method="GET">
+            <td th:text="${user.username}">
+
+            </td>
+            <td>
+                <button type="submit">Modifier</button>
+            </td>
+        </form>
+    </tr>
+</div>
+</body>
+</html>

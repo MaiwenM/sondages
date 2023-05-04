@@ -5,7 +5,7 @@
     box-sizing: content-box;
 }
 
-html {
+html, body {
     background: linear-gradient(to bottom, #141a31, #000000) fixed;
     color: white;
     height: 100%;
