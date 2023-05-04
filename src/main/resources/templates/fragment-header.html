@@ -9,10 +9,13 @@
 <header th:fragment="header">
     <h1>Votez pour vos propositions préférées</h1>
 
-    <span sec:authorize="!isAuthenticated()">
-        <a th:href="@{/login}">Se connecter</a>
-    </span>
-    <span sec:authorize="isAuthenticated()">
+    <div class="title-bar">
+        <button th:onclick="|window.location='@{/}'|" title="Retour">&lt</button>&nbsp;
+
+        <span class="pagination" sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Se connecter</a>
+        </span>
+        <span class="pagination" sec:authorize="isAuthenticated()">
         Utilisateur : <span sec:authentication="name">Bob</span>
         <span sec:authentication="principal.authorities">[ROLE_USER]</span>
         <th:block sec:authorize="hasRole('ADMIN')">
@@ -26,5 +29,6 @@
         |
         <a th:href="@{/logout}">Se déconnecter</a>
     </span>
+    </div>
 </header>
 </html>

@@ -7,12 +7,10 @@
 <body>
 <div th:fragment="single-user (user)">
     <tr>
-        <form th:action="@{/admin/updateUser/{id}(id=${user.username})}" method="GET">
-            <td th:text="${user.username}">
-
-            </td>
+        <form class="form-signin" th:action="@{/admin/updateUser/{id}(id=${user.username})}" method="GET">
+            <td th:text="${user.username}">Bob</td>
             <td>
-                <button type="submit">Modifier</button>
+                <button class="btn btn-primary" type="submit">Modifier</button>
             </td>
         </form>
     </tr>

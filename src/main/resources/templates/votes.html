@@ -9,11 +9,9 @@
     <h1>Votez pour vos propositions préférées</h1>
 </header>
 <body>
-<div class="title-bar">
-    <button th:onclick="|window.location='@{/}'|" title="Retour">&lt</button>&nbsp;
-    <h1>Détail des votes</h1>
-</div>
-<div class="sondage-sumup">
+<div class="container">
+    <h2>Détail des votes</h2>
+<!--<div class="sondage-sumup">-->
     <th:block th:insert="~{fragment-sondage :: single-sondage (sondage=${sondage})}"></th:block>
     <div id="votes">
         <div th:if="${votes.isEmpty()}">

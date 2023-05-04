@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Créer un sondage</title>
+    <title>Créez un sondage</title>
     <th:block th:replace="~{fragment-meta :: html-header}"></th:block>
 </head>
 <body>
 <div id="form-new-sondage" th:fragment="new-sondage (newSondage)">
 
-    <h2>Créez votre sondage</h2>
+    <h4>Créez un sondage</h4>
 
-    <form id="form-creation-sondage" action="#" method="post" th:object="${newSondage}">
-        <label for="description">Description :</label>
-        <input id="description" type="text" th:field="*{description}" required placeholder="Ex. : Vacances">
-        <br>
+    <form class="col" id="form-creation-sondage" action="#" method="post" th:object="${newSondage}">
 
-        <label for="question">Question :</label>
-        <input id="question" type="text" th:field="*{question}" required
-               placeholder="Ex. : Voulez-vous plus de vacances ?">
-        <br>
-
-        <label for="createdBy">Votre nom :</label>
-        <input id="createdBy" type="text" th:field="*{createdBy}" required placeholder="Ex. : John">
-        <br>
-
-        <label for="closedAt">Date de clôture :</label>
-        <input id="closedAt" type="datetime-local" required th:field="*{closedAt}">
-        <br>
-
-        <div class="btn-bar">
+        <div class="form-group">
+            <label class="form-label" for="description">Description :</label>
+            <input class="form-control" id="description" type="text" th:field="*{description}" required placeholder="Ex. : Vacances">
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="question">Question :</label>
+            <input class="form-control" id="question" type="text" th:field="*{question}" required
+                   placeholder="Ex. : Voulez-vous plus de vacances ?">
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="createdBy">Votre nom :</label>
+            <input class="form-control" id="createdBy" type="text" th:field="*{createdBy}" required placeholder="Ex. : John">
+        </div>
+        <div class="form-group">
+        <label class="form-label" for="closedAt">Date de clôture :</label>
+        <input class="form-control" id="closedAt" type="datetime-local" required th:field="*{closedAt}">
+        </div>
+        <div class="form-group">
             <button id="btn-reset-polling" class="btn" type="reset">Effacer</button>
-            <button id="btn-create-polling" class="btn btn-ok" type="submit">Ajouter</button>&nbsp;
+            <button id="btn-create-polling" class="btn btn-success" type="submit">Ajouter</button>&nbsp;
         </div>
     </form>
 </div>
