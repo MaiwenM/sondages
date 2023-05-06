@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -62,7 +61,10 @@ public class UsersController
     @PostMapping("/admin/createUser")
     @Transactional
     public String createUser(
-            @Valid @ModelAttribute(name = "user") CreateUserForm user, BindingResult validation, Model model)
+            Principal principal,
+            @Valid @ModelAttribute(name = "user") CreateUserForm user,
+            BindingResult validation,
+            Model model)
     {
         if (!user.getPassword().equals(user.getConfirmPassword()))
         {
@@ -87,7 +89,20 @@ public class UsersController
 
         // Create the account in database with all its roles
         userDetailsManager.createUser(userDetails);
-        return "redirect:/admin/listUsers";
+        if (principal != null)
+        {
+            UserDetails userDetails1 = userDetailsManager.loadUserByUsername(principal.getName());
+            Collection<? extends GrantedAuthority> authorities = userDetails1.getAuthorities();
+            for (GrantedAuthority authority : authorities)
+            {
+                boolean admin = authority.getAuthority().equals("ADMIN");
+                if (admin)
+                {
+                    return "redirect:/admin/listUsers";
+                }
+            }
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/inscription")
@@ -101,7 +116,7 @@ public class UsersController
     public String subscribe(
             @ModelAttribute(name = "user") @Valid CreateUserForm user, BindingResult validation, Model model)
     {
-        return createUser(user, validation, model);
+        return createUser(null, user, validation, model);
     }
 
     @GetMapping("/admin/listUsers")
@@ -145,7 +160,7 @@ public class UsersController
     {
         // Recherche de l'utilisateur en BDD
         Optional<String> login = Optional.ofNullable(userForm.getLogin());
-        UserDetails userDetails = login.map(l -> userDetailsManager.loadUserByUsername(l)).orElse(null) ;
+        UserDetails userDetails = login.map(l -> userDetailsManager.loadUserByUsername(l)).orElse(null);
         if (userDetails == null)
         {
             validation.addError(new FieldError("user", "username", "Utilisateur inconnu"));
