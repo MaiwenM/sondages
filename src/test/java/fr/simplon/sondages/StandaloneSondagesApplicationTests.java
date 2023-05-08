@@ -40,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * its endpoints in a random port.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+        //@ContextConfiguration(classes = TestSecurityConfig.class)
 class StandaloneSondagesApplicationTests
 {
     /**
@@ -97,6 +98,8 @@ class StandaloneSondagesApplicationTests
         url = String.format("http://localhost:%d/api/sondages", serverPort);
 
         Mockito.reset(repository);
+
+        restTemplate = restTemplate.withBasicAuth("admin", "admin");
     }
 
     @Test
@@ -163,7 +166,7 @@ class StandaloneSondagesApplicationTests
         Sondage result = response.getBody();
 
         // Check results
-        assertEquals(HttpStatus.OK, statusCode);
+        assertEquals(HttpStatus.CREATED, statusCode);
         assertNotNull(result);
         assertNotNull(result.getId());
         assertEquals(sample1.getId(), result.getId());
@@ -239,10 +242,8 @@ class StandaloneSondagesApplicationTests
         // When the mock is performed with the save() method, we re-program it to return
         // the new expected value the next time
         Mockito.reset(repository);
-        Mockito.doAnswer((InvocationOnMock invocation) -> {
-            Mockito.when(repository.findById(id)).thenReturn(Optional.of(originalSondage));
-            return null;
-        }).when(repository).save(Mockito.any());
+        Mockito.when(repository.findById(Mockito.any())).thenReturn(Optional.of(originalSondage));
+        Mockito.when(repository.save(originalSondage)).thenReturn(originalSondage);
 
         // Send a "PUT /sondages{id}" HTTP request with the new Sondage as the request's body
         HttpHeaders headers = new HttpHeaders();
@@ -251,7 +252,9 @@ class StandaloneSondagesApplicationTests
         ResponseEntity<Void> exchange = restTemplate.exchange(url, HttpMethod.PUT, httpRequest, Void.class, id);
 
         // Basic verifications
+        Mockito.verify(repository).findById(id);
         Mockito.verify(repository).save(Mockito.any());
+
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
         assertNull(exchange.getBody());
 
@@ -260,7 +263,7 @@ class StandaloneSondagesApplicationTests
         Sondage result = updatedResponse.getBody();
 
         // Verifications
-        Mockito.verify(repository).findById(id);
+        Mockito.verify(repository, Mockito.times(2)).findById(id);
         assertEquals(HttpStatus.OK, updatedResponse.getStatusCode());
         assertNotNull(result);
         assertNotNull(result.getId());

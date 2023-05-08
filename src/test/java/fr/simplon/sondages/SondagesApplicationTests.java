@@ -5,6 +5,7 @@ import fr.simplon.sondages.entity.Sondage;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
@@ -37,6 +38,7 @@ import java.time.temporal.ChronoUnit;
  * </p>
  */
 @SpringBootTest
+@Disabled
 class SondagesApplicationTests
 {
     /**

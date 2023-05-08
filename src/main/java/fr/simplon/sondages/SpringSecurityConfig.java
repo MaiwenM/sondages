@@ -52,6 +52,8 @@ public class SpringSecurityConfig
                 .requestMatchers("/admin/**").hasRole("ADMIN") //
                 .anyRequest().permitAll() //
                 .and()//
+                .httpBasic()
+                .and()
                 .formLogin()//
                 .loginPage("/login").permitAll() //
                 .and().passwordManagement(management -> management.changePasswordPage("/change-password")) //

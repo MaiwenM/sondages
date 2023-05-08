@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>fr.simplon</groupId>
-    <artifactId>tp-security</artifactId>
+    <artifactId>sondages</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>tp-security</name>
-    <description>tp-security</description>
+    <name>sondages</name>
+    <description>Application de sondages</description>
     <properties>
         <java.version>17</java.version>
     </properties>
